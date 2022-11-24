@@ -1,33 +1,20 @@
-import "./App.css";
-import axios from "axios";
-import greetings from "./components/greetings";
-import { useEffect, useState } from "react";
+import './App.css';
+// import axios from 'axios';
+// import { useEffect, useState } from 'react';
+// import React from 'react';
+import {
+  BrowserRouter as Router,
+  Link,
+} from 'react-router-dom';
+import Greeting from './components/greetings';
 
-const API_URL = "http://127.0.0.1:3000//api/v1/greetings";
-
-
-function getAPIData() {
-  return axios.get(API_URL).then((response) => response.data);
-}
+// const API_URL = 'http://127.0.0.1:3000//api/v1/greetings';
 
 function App() {
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    let mounted = true;
-    getAPIData().then((items) => {
-      if (mounted) {
-        setMessages(items);
-      }
-    });
-    return () => (mounted = false);
-  }, []);
-
   return (
-    <div className="App">
-      <h1>Hello</h1>
-      <greetings messages={messages} />
-    </div>
+    <Router>
+      <Link to="/"><Greeting /></Link>
+    </Router>
   );
 }
 

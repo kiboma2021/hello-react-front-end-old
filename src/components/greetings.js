@@ -1,18 +1,27 @@
-import React from 'react'
+import axios from 'axios';
+import { React, useEffect, useState } from 'react';
 
-function greetings(props) {
-  return (
-    <div>
-    <h1>This is a random Message from the API</h1>
-    {props.greetings.map((greeting) => {
-      return (
-        <div key={greeting.id}>
-          <h2>{greeting.message}</h2>
-        </div>
-      );
-    })}
-  </div>
-  )
+const API_URL = "http://127.0.0.1:3000//api/v1/greetings'";
+
+function getAPIData() {
+  return axios.get(API_URL).then((response) => response.data);
 }
 
-export default greetings
+function Greeting() {
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    getAPIData().then((items) => {
+      setMessages(items);
+    });
+  }, []);
+
+  return (
+    <div>
+      <h1>Below is a random item from the Rails API</h1>
+      <p>{messages}</p>
+    </div>
+  );
+}
+
+export default Greeting;
